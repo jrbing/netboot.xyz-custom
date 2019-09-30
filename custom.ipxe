@@ -3,10 +3,20 @@
 ### netboot.xyz-custom menu
 ###
 
-:start
-echo Hello world!
-sleep 10
+:custom
+clear custom_choice
+menu Custom
+item --gap Slax
+item option_one ${space} Boot SLAX Linux (32 bit)
+choose custom_choice || goto custom_exit
+echo ${cls}
+goto ${custom_choice}
 goto custom_exit
 
+:option_one
+chain http://slax.org/ipxe/?arch=32bit
+boot || goto custom_exit
+
 :custom_exit
-exit 0
+chain utils.ipxe
+exit
